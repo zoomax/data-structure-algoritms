@@ -29,16 +29,34 @@ class LinkedList {
 
   append(value) {
     const node = new Node(value)
-    this.size++
     if (this.isEmpty()) {
       this.head = node
+    } else {
+      let current = this.head
+      while (current.next !== null) {
+        current = current.next
+      }
+      current.next = node
+    }
+    this.size++
+  }
+
+  insert(value, index) {
+    if (index < 0 || index > this.size - 1) return
+    if (index === 0) {
+      this.prepend(value)
       return
     }
-    let current = this.head
-    while (current.next !== null) {
-      current = current.next
+    const node = new Node(value)
+    let currentIndex = 0
+    let currentNode = this.head
+    while (currentIndex < index) {
+      currentNode = currentNode.next
+      currentIndex++
     }
-    current.next = node
+    node.next = currentNode.next
+    currentNode.next = node
+    this.size++
   }
 
   print() {
@@ -61,6 +79,7 @@ linkedList.prepend(10)
 linkedList.prepend(20)
 linkedList.prepend(30)
 linkedList.append(40)
+linkedList.insert(50, 1)
 console.log(
   `this linked list  has ${linkedList.getSize()} ${
     linkedList.getSize() === 1 ? 'node' : 'nodes'
