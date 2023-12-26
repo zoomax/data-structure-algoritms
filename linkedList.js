@@ -50,13 +50,28 @@ class LinkedList {
     const node = new Node(value)
     let currentIndex = 0
     let currentNode = this.head
-    while (currentIndex < index) {
+    while (currentIndex < index - 1) {
       currentNode = currentNode.next
       currentIndex++
     }
     node.next = currentNode.next
     currentNode.next = node
     this.size++
+  }
+
+  remove(index) {
+    if (index < 0 || this.size <= index) return
+    let node = this.head
+    if (index === 0) {
+      this.head = this.head.next
+    } else {
+      for (let i = 0; i < index - 1; i++) {
+        node = node.next
+      }
+      node.next = node.next.next
+    }
+    this.size--
+    return node.value
   }
 
   print() {
@@ -80,6 +95,7 @@ linkedList.prepend(20)
 linkedList.prepend(30)
 linkedList.append(40)
 linkedList.insert(50, 1)
+linkedList.remove(1)
 console.log(
   `this linked list  has ${linkedList.getSize()} ${
     linkedList.getSize() === 1 ? 'node' : 'nodes'
