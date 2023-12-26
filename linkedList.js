@@ -59,8 +59,8 @@ class LinkedList {
     this.size++
   }
 
-  remove(index) {
-    if (index < 0 || this.size <= index) return
+  removeByIndex(index) {
+    if (index < 0 || this.size <= index) return null
     let node = this.head
     if (index === 0) {
       this.head = this.head.next
@@ -72,6 +72,27 @@ class LinkedList {
     }
     this.size--
     return node.value
+  }
+  removeByValue(value) {
+    if (this.isEmpty()) return null
+    let curr = this.head
+    let prev = null
+    if (this.head.value === value) {
+      this.head = this.head.next
+      this.size--
+      return curr.value
+    }
+    for (let i = 0; i < this.getSize(); i++) {
+      if (curr.value !== value) {
+        prev = curr
+        curr = curr.next
+      } else {
+        prev.next = curr.next
+        this.size--
+        return curr.value
+      }
+    }
+    return null
   }
 
   print() {
@@ -95,7 +116,14 @@ linkedList.prepend(20)
 linkedList.prepend(30)
 linkedList.append(40)
 linkedList.insert(50, 1)
-linkedList.remove(1)
+
+linkedList.removeByIndex(0)
+linkedList.removeByIndex(2)
+
+// linkedList.removeByValue(40)
+// linkedList.removeByValue(10)
+// linkedList.removeByValue(20)
+
 console.log(
   `this linked list  has ${linkedList.getSize()} ${
     linkedList.getSize() === 1 ? 'node' : 'nodes'
