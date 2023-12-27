@@ -65,7 +65,6 @@ class LinkedList {
       this.head = this.head.next;
     } else {
       for (let i = 0; i < index - 1; i++) {
-        console.log(`index => ${i}`);
         node = node.next;
       }
       console.log(node.value);
@@ -158,11 +157,11 @@ class StackLinkedList {
   }
 
   push(value) {
-    this.items.prepend(value);
+    this.items.append(value);
   }
 
   pop() {
-    this.items.removeByIndex(0);
+    if (this.size() > 0) this.items.removeByIndex(this.size() - 1);
   }
 }
 
