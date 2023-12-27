@@ -145,35 +145,57 @@ class LinkedList {
   }
 }
 
-const linkedList = new LinkedList();
+class QueueLinkedList {
+  constructor() {
+    this.list = new LinkedList();
+  }
 
-linkedList.prepend(10);
-linkedList.prepend(20);
-linkedList.prepend(30);
+  front() {
+    return this.list.head ? this.list.head.value : null;
+  }
 
-linkedList.append(40);
+  rear() {
+    return this.list.tail ? this.list.tail.value : null;
+  }
 
-linkedList.insert(50, 1);
+  size() {
+    return this.list.getSize();
+  }
 
-linkedList.removeByIndex(3);
-linkedList.removeByIndex(0);
+  print() {
+    this.list.print();
+  }
 
-// linkedList.removeByValue(40);
-// linkedList.removeByValue(10);
-// linkedList.removeByValue(20);
+  enqueue(value) {
+    this.list.append(value);
+  }
+  dequeue() {
+    this.list.removeByIndex(0);
+  }
+}
 
-// console.log(linkedList.searchByValue(40));
+const queue = new QueueLinkedList();
 
-console.log(
-  `this linked list  has ${linkedList.getSize()} ${
-    linkedList.getSize() === 1 ? "node" : "nodes"
-  }`
-);
+console.log(`stack length : ${queue.size()}`);
+console.log(`stack front : ${queue.front()}`);
+console.log(`stack rear : ${queue.rear()}`);
 
-console.log(`Head has the value of ${linkedList.head?.value} now`);
+queue.enqueue(10);
+queue.enqueue(20);
+queue.enqueue(30);
+queue.enqueue(40);
+queue.enqueue(50);
 
-linkedList.reverse();
-linkedList.print();
-console.log(
-  `head => ${linkedList.head.value} / tail => ${linkedList.tail.value}`
-);
+console.log(`stack length : ${queue.size()}`);
+console.log(`stack front : ${queue.front()}`);
+console.log(`stack rear : ${queue.rear()}`);
+queue.print();
+
+queue.dequeue();
+queue.dequeue();
+queue.dequeue();
+
+console.log(`stack length : ${queue.size()}`);
+console.log(`stack front : ${queue.front()}`);
+console.log(`stack rear : ${queue.rear()}`);
+queue.print();
