@@ -172,6 +172,10 @@ class QueueLinkedList {
   dequeue() {
     this.list.removeByIndex(0);
   }
+
+  isEmpty() {
+    return this.list.isEmpty();
+  }
 }
 
 const queue = new QueueLinkedList();
