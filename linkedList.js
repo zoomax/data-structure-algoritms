@@ -108,6 +108,19 @@ class LinkedList {
     return -1;
   }
 
+  /// reverse linked list
+  reverse() {
+    let current = this.head;
+    let prev = null;
+    for (let i = 0; i < this.getSize(); i++) {
+      let next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.head = prev;
+  }
+
   print() {
     if (this.isEmpty()) {
       console.log("this linked list is empty");
@@ -124,23 +137,32 @@ class LinkedList {
 }
 
 const linkedList = new LinkedList();
+
 linkedList.prepend(10);
 linkedList.prepend(20);
 linkedList.prepend(30);
-linkedList.append(40);
-linkedList.insert(50, 1);
-console.log(linkedList.searchByValue(40));
-// linkedList.removeByIndex(0);
-// linkedList.removeByIndex(2);
 
-// linkedList.removeByValue(40)
-// linkedList.removeByValue(10)
-// linkedList.removeByValue(20)
+linkedList.append(40);
+
+linkedList.insert(50, 1);
+
+linkedList.removeByIndex(0);
+linkedList.removeByIndex(2);
+
+linkedList.removeByValue(40);
+linkedList.removeByValue(10);
+linkedList.removeByValue(20);
+
+console.log(linkedList.searchByValue(40));
 
 console.log(
   `this linked list  has ${linkedList.getSize()} ${
     linkedList.getSize() === 1 ? "node" : "nodes"
   }`
 );
+
 console.log(`Head has the value of ${linkedList.head?.value} now`);
+
+linkedList.reverse();
+
 linkedList.print();
