@@ -18,7 +18,6 @@ class LinkedList {
   getSize() {
     return this.size;
   }
-
   prepend(value) {
     const node = new Node(value);
     if (this.isEmpty()) {
@@ -30,7 +29,6 @@ class LinkedList {
     }
     this.size++;
   }
-
   append(value) {
     const node = new Node(value);
     if (this.isEmpty()) {
@@ -42,7 +40,6 @@ class LinkedList {
     }
     this.size++;
   }
-
   insert(value, index) {
     if (index < 0 || index > this.size - 1) return;
     if (index === 0) {
@@ -61,7 +58,6 @@ class LinkedList {
 
     this.size++;
   }
-
   removeByIndex(index) {
     if (index < 0 || this.size <= index) return null;
     let node = this.head;
@@ -79,7 +75,6 @@ class LinkedList {
     this.size--;
     return node.value;
   }
-
   removeByValue(value) {
     if (this.isEmpty()) return null;
     let curr = this.head;
@@ -102,7 +97,6 @@ class LinkedList {
     }
     return null;
   }
-
   searchByValue(value) {
     let index = 0;
     let temp = this.head;
@@ -115,7 +109,6 @@ class LinkedList {
     }
     return -1;
   }
-
   /// reverse linked list
   reverse() {
     let current = this.head;
@@ -129,7 +122,6 @@ class LinkedList {
     }
     this.head = prev;
   }
-
   print() {
     if (this.isEmpty()) {
       console.log("this linked list is empty");
@@ -144,36 +136,58 @@ class LinkedList {
     console.log(values);
   }
 }
+class StackLinkedList {
+  constructor() {
+    this.items = new LinkedList();
+  }
 
-const linkedList = new LinkedList();
+  size() {
+    return this.items.getSize();
+  }
 
-linkedList.prepend(10);
-linkedList.prepend(20);
-linkedList.prepend(30);
+  peak() {
+    return this.items.head ? this.items.head.value : null;
+  }
 
-linkedList.append(40);
+  tail() {
+    return this.items.tail ? this.items.tail.value : null;
+  }
 
-linkedList.insert(50, 1);
+  print() {
+    this.items.print();
+  }
 
-linkedList.removeByIndex(3);
-linkedList.removeByIndex(0);
+  push(value) {
+    this.items.prepend(value);
+  }
 
-// linkedList.removeByValue(40);
-// linkedList.removeByValue(10);
-// linkedList.removeByValue(20);
+  pop() {
+    this.items.removeByIndex(0);
+  }
+}
 
-// console.log(linkedList.searchByValue(40));
+const stack = new StackLinkedList();
 
-console.log(
-  `this linked list  has ${linkedList.getSize()} ${
-    linkedList.getSize() === 1 ? "node" : "nodes"
-  }`
-);
+console.log(`stack length : ${stack.size()}`);
+console.log(`stack peak : ${stack.peak()}`);
+console.log(`stack tail : ${stack.tail()}`);
 
-console.log(`Head has the value of ${linkedList.head?.value} now`);
+stack.push(10);
+stack.push(20);
+stack.push(30);
+stack.push(40);
+stack.push(50);
 
-linkedList.reverse();
-linkedList.print();
-console.log(
-  `head => ${linkedList.head.value} / tail => ${linkedList.tail.value}`
-);
+console.log(`stack length : ${stack.size()}`);
+console.log(`stack peak : ${stack.peak()}`);
+console.log(`stack tail : ${stack.tail()}`);
+stack.print();
+
+stack.pop();
+stack.pop();
+stack.pop();
+
+console.log(`stack length : ${stack.size()}`);
+console.log(`stack peak : ${stack.peak()}`);
+console.log(`stack tail : ${stack.tail()}`);
+stack.print();
