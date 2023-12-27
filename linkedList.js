@@ -8,6 +8,7 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
     this.size = 0;
   }
 
@@ -20,10 +21,13 @@ class LinkedList {
 
   prepend(value) {
     const node = new Node(value);
-    if (!this.isEmpty()) {
+    if (this.isEmpty()) {
+      this.head = node;
+      this.tail = node;
+    } else {
       node.next = this.head;
+      this.head = node;
     }
-    this.head = node;
     this.size++;
   }
 
@@ -31,12 +35,10 @@ class LinkedList {
     const node = new Node(value);
     if (this.isEmpty()) {
       this.head = node;
+      this.tail = node;
     } else {
-      let current = this.head;
-      while (current.next !== null) {
-        current = current.next;
-      }
-      current.next = node;
+      this.tail.next = node;
+      this.tail = node;
     }
     this.size++;
   }
@@ -56,6 +58,7 @@ class LinkedList {
     }
     node.next = currentNode.next;
     currentNode.next = node;
+
     this.size++;
   }
 
@@ -66,13 +69,17 @@ class LinkedList {
       this.head = this.head.next;
     } else {
       for (let i = 0; i < index - 1; i++) {
+        console.log(`index => ${i}`);
         node = node.next;
       }
+      console.log(node.value);
       node.next = node.next.next;
+      if (index === this.getSize() - 1) this.tail = node.next;
     }
     this.size--;
     return node.value;
   }
+
   removeByValue(value) {
     if (this.isEmpty()) return null;
     let curr = this.head;
@@ -88,6 +95,7 @@ class LinkedList {
         curr = curr.next;
       } else {
         prev.next = curr.next;
+        if (i === this.getSize() - 1) this.tail = prev;
         this.size--;
         return curr.value;
       }
@@ -111,6 +119,7 @@ class LinkedList {
   /// reverse linked list
   reverse() {
     let current = this.head;
+    this.tail = this.head;
     let prev = null;
     for (let i = 0; i < this.getSize(); i++) {
       let next = current.next;
@@ -146,14 +155,14 @@ linkedList.append(40);
 
 linkedList.insert(50, 1);
 
+linkedList.removeByIndex(3);
 linkedList.removeByIndex(0);
-linkedList.removeByIndex(2);
 
-linkedList.removeByValue(40);
-linkedList.removeByValue(10);
-linkedList.removeByValue(20);
+// linkedList.removeByValue(40);
+// linkedList.removeByValue(10);
+// linkedList.removeByValue(20);
 
-console.log(linkedList.searchByValue(40));
+// console.log(linkedList.searchByValue(40));
 
 console.log(
   `this linked list  has ${linkedList.getSize()} ${
@@ -164,5 +173,7 @@ console.log(
 console.log(`Head has the value of ${linkedList.head?.value} now`);
 
 linkedList.reverse();
-
 linkedList.print();
+console.log(
+  `head => ${linkedList.head.value} / tail => ${linkedList.tail.value}`
+);
