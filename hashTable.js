@@ -14,17 +14,41 @@ class HashTable {
 
   set(key, value) {
     const index = this.hash(key)
-    this.table[index] = value
+    const bucket = this.table[index]
+    if (!bucket) this.table[index] = [[key, value]]
+    else {
+      let item = bucket.find((item) => item[0] === key)
+      if (item) {
+        item[1] = value
+      } else {
+        bucket.push([key, value])
+      }
+    }
   }
   get(key) {
     const index = this.hash(key)
-    return this.table[index]
+    const bucket = this.table[index]
+    if (bucket) {
+      let item = bucket.find((item) => item[0] === key)[1]
+      if (item) {
+        return item[1]
+      }
+    }
+
+    return undefined
   }
   remove(key) {
     const index = this.hash(key)
-    const item = this.table[index]
-    this.table[index] = undefined
-    return item
+    const bucket = this.table[index]
+    if (bucket) {
+      let itemIndex = bucket.findIndex((item) => item[0] === key)
+      if (itemIndex > -1) {
+        const removedItem = [...bucket[itemIndex]]
+        delete bucket[itemIndex]
+        return removedItem
+      }
+    }
+    return undefined
   }
   display() {
     this.table.forEach((item) => {
@@ -35,6 +59,7 @@ class HashTable {
 
 const hashTable = new HashTable(30)
 hashTable.set('name', 'hazem')
+hashTable.set('enam', 'tarek')
 hashTable.set('salary', 3000)
 hashTable.set('age', 30)
 
