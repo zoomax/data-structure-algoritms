@@ -67,16 +67,21 @@ class BinarySearchTree {
       this.preOrder(node.right)
     }
   }
+  inOrder(node) {
+    if (node) {
+      this.inOrder(node.left)
+      console.log(node.value)
+      this.inOrder(node.right)
+    }
+  }
 }
 
 const bst = new BinarySearchTree()
-bst.insert(100)
-bst.insert(200)
-bst.insert(50)
 bst.insert(10)
-bst.insert(20)
+bst.insert(5)
+bst.insert(15)
+bst.insert(3)
+bst.insert(7)
 
-console.log(bst.search(100))
-console.log(bst.search(200))
-console.log(bst.search(4))
 bst.preOrder(bst.root)
+bst.inOrder(bst.root)
