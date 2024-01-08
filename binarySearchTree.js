@@ -95,6 +95,23 @@ class BinarySearchTree {
       }
     }
   }
+
+  min(root) {
+    if (this.isEmpty()) return null
+    if (!root.left) {
+      return root.value
+    } else {
+      return this.min(root.left)
+    }
+  }
+  max(root) {
+    if (this.isEmpty()) return null
+    if (!root.right) {
+      return root.value
+    } else {
+      return this.max(root.right)
+    }
+  }
 }
 
 const bst = new BinarySearchTree()
@@ -111,3 +128,7 @@ console.log('===========post order=========')
 bst.postOrder(bst.root)
 console.log('===========level order=========')
 bst.levelOrder(bst.root)
+console.log('===========min=========')
+console.log(bst.min(bst.root))
+console.log('===========max=========')
+console.log(bst.max(bst.root))
